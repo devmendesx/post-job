@@ -37,7 +37,7 @@ public class PostScheduling {
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
 
-  @Scheduled(fixedDelay = 600000)
+  @Scheduled(cron = "0 * * * 1-5")
   public void postsFitness() {
     try {
       if (!isRunningHour()) return;
@@ -59,12 +59,11 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to("120363197289116102@g.us")
+                              .to(group)
                               .image(imageUrl)
                               .caption(message)
                               .build();
                       this.ultraClient.postMessage(body);
-                      System.out.println("Message sent! Group -> " + group);
                     });
           });
       this.setFlgProcessed(posts);
@@ -73,7 +72,7 @@ public class PostScheduling {
     }
   }
 
-  @Scheduled(fixedDelay = 600000)
+  @Scheduled(cron = "0 * * * 1-5")
   public void postsKids() {
     try {
       if (!isRunningHour()) return;
@@ -95,12 +94,11 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to("120363197289116102@g.us")
+                              .to(group)
                               .image(imageUrl)
                               .caption(message)
                               .build();
                       this.ultraClient.postMessage(body);
-                      System.out.println("Message sent! Group -> " + group);
                     });
           });
 
