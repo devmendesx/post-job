@@ -37,7 +37,7 @@ public class PostScheduling {
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
 
-  @Scheduled(cron = "0 * * * 1-5")
+  @Scheduled(cron = "0 0 * * * MON-FRI")
   public void postsFitness() {
     try {
       if (!isRunningHour()) return;
@@ -72,7 +72,7 @@ public class PostScheduling {
     }
   }
 
-  @Scheduled(cron = "0 * * * 1-5")
+  @Scheduled(cron = "0 0 * * * MON-FRI")
   public void postsKids() {
     try {
       if (!isRunningHour()) return;
