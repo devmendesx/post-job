@@ -1,0 +1,18 @@
+ultramsg:
+  baseUrl: https://api.ultramsg.com/instance76516
+  image: /messages/image
+  token: ljgkja00cec73dad
+
+mmtech:
+  url: https://api.mmtechnology.com.br
+  image-download: /v1/storage/download/
+  user: message-api
+  password: message-api
+
+spring:
+  cloud:
+    openfeign:
+      httpclient:
+        connection-timeout: 100000
+        ok-http:
+          read-timeout: 200000
