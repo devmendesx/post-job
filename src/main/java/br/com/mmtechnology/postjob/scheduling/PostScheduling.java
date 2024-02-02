@@ -37,12 +37,12 @@ public class PostScheduling {
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
 
-  @Scheduled(fixedRate = 60 * 60 * 1000)
+  @Scheduled(cron = "0 * * * 1-5")
   public void postsFitness() {
     try {
       if (!isRunningHour()) return;
       var posts = mmClient.getPosts("FITNESS", 1);
-      log.info("Enviando novos posts, posts={}", posts);
+      log.info("Enviando novos posts FITNESS, posts={}", posts);
       posts.forEach(
           post -> {
             var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
@@ -59,7 +59,7 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to(group)
+                              .to("120363197289116102@g.us")
                               .image(imageUrl)
                               .caption(message)
                               .build();
@@ -72,12 +72,12 @@ public class PostScheduling {
     }
   }
 
-  @Scheduled(fixedRate = 60 * 60 * 1000)
+  @Scheduled(cron = "0 * * * 1-5")
   public void postsKids() {
     try {
       if (!isRunningHour()) return;
       var posts = mmClient.getPosts("INFANTIL", 1);
-      log.info("Enviando novos posts, posts={}", posts);
+      log.info("Enviando novos posts INFANTIL, posts={}", posts);
       posts.forEach(
           post -> {
             var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
@@ -94,7 +94,7 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to(group)
+                              .to("120363197289116102@g.us")
                               .image(imageUrl)
                               .caption(message)
                               .build();
