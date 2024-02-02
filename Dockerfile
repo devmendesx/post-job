@@ -20,6 +20,9 @@ ENV GRADLE=/usr/app
     
 WORKDIR $APP
 COPY --from=BUILD $GRADLE/build/libs/*.jar $APP/$ARTIFACT_NAME
+
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
     
 EXPOSE 9090
 ENTRYPOINT exec java -jar ${ARTIFACT_NAME} -Dspring.profiles.active=dev

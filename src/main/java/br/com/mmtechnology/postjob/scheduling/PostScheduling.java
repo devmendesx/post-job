@@ -59,7 +59,7 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to("120363197289116102@g.us")
+                              .to(group)
                               .image(imageUrl)
                               .caption(message)
                               .build();
@@ -94,7 +94,7 @@ public class PostScheduling {
                       var body =
                           UltraMsgImageRequest.builder()
                               .token(this.token)
-                              .to("120363197289116102@g.us")
+                              .to(group)
                               .image(imageUrl)
                               .caption(message)
                               .build();
