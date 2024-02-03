@@ -32,7 +32,7 @@ public class PostScheduling {
   private final LocalDateTime startHour =
       LocalDateTime.now().withHour(8).withMinute(0).withSecond(0);
   private final LocalDateTime finalHour =
-      LocalDateTime.now().withHour(18).withMinute(0).withSecond(0);
+      LocalDateTime.now().withHour(18).withMinute(5).withSecond(0);
 
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
