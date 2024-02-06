@@ -40,33 +40,34 @@ public class PostScheduling {
   @Scheduled(cron = "0 5 * * * 1-5")
   public void postsFitness() {
     try {
-      if (!isRunningHour()) return;
-      var posts = mmClient.getPosts("FITNESS", 1);
-      log.info("Enviando novos posts FITNESS, posts={}", posts);
-      posts.forEach(
-          post -> {
-            var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
-            var message =
-                this.buildMessage(
-                    post.getName(),
-                    post.getDepartment().name(),
-                    post.getDescription(),
-                    post.getAddress(),
-                    post.getWhatsappId());
-            post.getGroups()
-                .forEach(
-                    group -> {
-                      var body =
-                          UltraMsgImageRequest.builder()
-                              .token(this.token)
-                              .to(group)
-                              .image(imageUrl)
-                              .caption(message)
-                              .build();
-                      this.ultraClient.postMessage(body);
-                    });
-          });
-      this.setFlgProcessed(posts);
+      if (isRunningHour()) {
+        var posts = mmClient.getPosts("FITNESS", 1);
+        log.info("Enviando novos posts FITNESS, posts={}", posts);
+        posts.forEach(
+            post -> {
+              var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
+              var message =
+                  this.buildMessage(
+                      post.getName(),
+                      post.getDepartment().name(),
+                      post.getDescription(),
+                      post.getAddress(),
+                      post.getWhatsappId());
+              post.getGroups()
+                  .forEach(
+                      group -> {
+                        var body =
+                            UltraMsgImageRequest.builder()
+                                .token(this.token)
+                                .to(group)
+                                .image(imageUrl)
+                                .caption(message)
+                                .build();
+                        this.ultraClient.postMessage(body);
+                      });
+            });
+        this.setFlgProcessed(posts);
+      }
     } catch (Exception ex) {
       log.error("msg=Error on sending posts., ex={}", ex.getMessage());
     }
