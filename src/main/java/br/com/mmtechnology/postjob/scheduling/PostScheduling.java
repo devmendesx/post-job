@@ -32,7 +32,7 @@ public class PostScheduling {
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
 
-  @Scheduled(cron = "0 5 * * * 1-5")
+  @Scheduled(cron = "0 10 * * * 1-5")
   public void postsFitness() {
     try {
       if (isRunningHour()) {
@@ -68,7 +68,7 @@ public class PostScheduling {
     }
   }
 
-  @Scheduled(cron = "0 5 * * * 1-5")
+  @Scheduled(cron = "0 10 * * * 1-5")
   public void postsKids() {
     try {
       if (isRunningHour()) {
@@ -128,8 +128,8 @@ public class PostScheduling {
   }
 
   public boolean isRunningHour() {
-    var startHour = LocalDateTime.now().withHour(7).withMinute(50).withSecond(0);
-    var finalHour = LocalDateTime.now().withHour(18).withMinute(10).withSecond(0);
+    var startHour = LocalDateTime.now().withHour(8).withMinute(0).withSecond(0);
+    var finalHour = LocalDateTime.now().withHour(18).withMinute(20).withSecond(0);
     log.info(
         "Verificando running hour,  now={}, start={}, final={}",
         LocalDateTime.now(),
