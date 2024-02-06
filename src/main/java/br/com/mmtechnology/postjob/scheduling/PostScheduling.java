@@ -30,7 +30,7 @@ public class PostScheduling {
   private String baseUrl;
 
   private final LocalDateTime startHour =
-      LocalDateTime.now().withHour(8).withMinute(0).withSecond(0);
+      LocalDateTime.now().withHour(7).withMinute(50).withSecond(0);
   private final LocalDateTime finalHour =
       LocalDateTime.now().withHour(18).withMinute(10).withSecond(0);
 
@@ -75,34 +75,35 @@ public class PostScheduling {
   @Scheduled(cron = "0 5 * * * 1-5")
   public void postsKids() {
     try {
-      if (!isRunningHour()) return;
-      var posts = mmClient.getPosts("INFANTIL", 1);
-      log.info("Enviando novos posts INFANTIL, posts={}", posts);
-      posts.forEach(
-          post -> {
-            var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
-            var message =
-                this.buildMessage(
-                    post.getName(),
-                    post.getDepartment().name(),
-                    post.getDescription(),
-                    post.getAddress(),
-                    post.getWhatsappId());
-            post.getGroups()
-                .forEach(
-                    group -> {
-                      var body =
-                          UltraMsgImageRequest.builder()
-                              .token(this.token)
-                              .to(group)
-                              .image(imageUrl)
-                              .caption(message)
-                              .build();
-                      this.ultraClient.postMessage(body);
-                    });
-          });
+      if (isRunningHour()) {
+        var posts = mmClient.getPosts("INFANTIL", 1);
+        log.info("Enviando novos posts INFANTIL, posts={}", posts);
+        posts.forEach(
+            post -> {
+              var imageUrl = this.baseUrl + this.imageDownloadUrl + post.getImageUrl();
+              var message =
+                  this.buildMessage(
+                      post.getName(),
+                      post.getDepartment().name(),
+                      post.getDescription(),
+                      post.getAddress(),
+                      post.getWhatsappId());
+              post.getGroups()
+                  .forEach(
+                      group -> {
+                        var body =
+                            UltraMsgImageRequest.builder()
+                                .token(this.token)
+                                .to(group)
+                                .image(imageUrl)
+                                .caption(message)
+                                .build();
+                        this.ultraClient.postMessage(body);
+                      });
+            });
 
-      this.setFlgProcessed(posts);
+        this.setFlgProcessed(posts);
+      }
     } catch (Exception ex) {
       log.error("msg=Error on sending posts., ex={}", ex.getMessage());
     }
@@ -131,8 +132,12 @@ public class PostScheduling {
   }
 
   public boolean isRunningHour() {
-    log.info("Verificando running hour: {}", LocalDateTime.now());
+    log.info(
+        "Verificando running hour,  now={}, start={}, final={}",
+        LocalDateTime.now(),
+        this.startHour,
+        this.finalHour);
     var now = LocalDateTime.now();
-    return now.isAfter(startHour) && now.isBefore(finalHour);
+    return (now.isAfter(startHour) && now.isBefore(finalHour));
   }
 }
