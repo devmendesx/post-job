@@ -29,11 +29,6 @@ public class PostScheduling {
   @Value("${mmtech.url}")
   private String baseUrl;
 
-  private final LocalDateTime startHour =
-      LocalDateTime.now().withHour(7).withMinute(50).withSecond(0);
-  private final LocalDateTime finalHour =
-      LocalDateTime.now().withHour(18).withMinute(10).withSecond(0);
-
   private final MMTechClient mmClient;
   private final UltraMSGClient ultraClient;
 
@@ -133,11 +128,13 @@ public class PostScheduling {
   }
 
   public boolean isRunningHour() {
+    var startHour = LocalDateTime.now().withHour(7).withMinute(50).withSecond(0);
+    var finalHour = LocalDateTime.now().withHour(18).withMinute(10).withSecond(0);
     log.info(
         "Verificando running hour,  now={}, start={}, final={}",
         LocalDateTime.now(),
-        this.startHour,
-        this.finalHour);
+        startHour,
+        finalHour);
     var now = LocalDateTime.now();
     return (now.isAfter(startHour) && now.isBefore(finalHour));
   }
