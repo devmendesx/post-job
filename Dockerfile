@@ -10,7 +10,7 @@ RUN chown -R gradle /home/gradle/src
     
 RUN gradle build || return 0
 COPY . .
-RUN gradle clean build
+RUN gradle build
     
 # actual container
 FROM openjdk:17-oracle
