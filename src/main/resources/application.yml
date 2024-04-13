@@ -1,7 +1,7 @@
-ultramsg:
-  baseUrl: https://api.ultramsg.com/INSTANCIA_ID
-  image: /messages/image
-  token: TOKEN_APP
+gowhats:
+  baseUrl: http://wpp:3000
+  image: /client/sendMessage
+  token: WHATSAPPKEY
 
 spring:
   cloud:
@@ -10,3 +10,9 @@ spring:
         connection-timeout: 100000
         ok-http:
           read-timeout: 200000
+
+feign:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
