@@ -1,6 +1,5 @@
 package br.com.mmtechnology.postjob.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MessageSendOptions {
   private String caption;
-  private boolean linkPreview = true;
+  @Builder.Default private boolean linkPreview = true;
 }
