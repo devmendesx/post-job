@@ -1,5 +1,5 @@
 gowhats:
-  baseUrl: http://wpp:3000
+  baseUrl: http://wpp
   image: /client/sendMessage
   token: WHATSAPPKEY
 
