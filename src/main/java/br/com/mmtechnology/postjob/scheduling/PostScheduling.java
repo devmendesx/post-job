@@ -26,7 +26,7 @@ public class PostScheduling {
   @Value("${gowhats.token}")
   private String token;
 
-  @Scheduled(cron = "0 15 * * * *")
+  @Scheduled(cron = "0 0 * * * *")
   public void sendSignal() {
     try {
       try {
