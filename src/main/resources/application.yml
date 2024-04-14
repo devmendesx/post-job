@@ -1,5 +1,5 @@
 gowhats:
-  baseUrl: http://wpp
+  baseUrl: https://whatsapp.mmtechnology.com.br
   image: /client/sendMessage
   token: WHATSAPPKEY
 
